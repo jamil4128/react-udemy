@@ -13,17 +13,10 @@ export class App extends Component {
     nameToggle: false
   }
 
-  switchNameHandler = (NewName) => {
-    this.setState({
-      person: [
-        { name: NewName, age: "29" },
-        { name: "Maruf", age: "22" },
-        { name: "Mollika", age: "20" }
-      ]
-    },
-      () => {
-        console.log("was clicked")
-      })
+  deletePersonHandler = (personIndex) => {
+    const persons = this.state.person
+    persons.splice(personIndex, 1)
+    this.setState({ person: persons })
   }
 
   changeInputHandler = (event) => {
@@ -53,8 +46,11 @@ export class App extends Component {
     if (this.state.nameToggle) {
       personConditional =
         < div >
-          {this.state.person.map(p => {
-            return <Person name={p.name} age={p.age} />
+          {this.state.person.map((p, index) => {
+            return <Person
+              click={this.deletePersonHandler.bind(this, index)}
+              name={p.name}
+              age={p.age} />
 
           })}
         </div >
