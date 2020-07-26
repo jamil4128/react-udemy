@@ -53,18 +53,10 @@ export class App extends Component {
     if (this.state.nameToggle) {
       personConditional =
         < div >
-          <Person
-            name={this.state.person[0].name}
-            age={this.state.person[0].age} />
-          <Person
-            name={this.state.person[1].name}
-            age={this.state.person[1].age}
-            click={() => this.switchNameHandler("Faruk")}
-            changeInput={this.changeInputHandler}>I am a child components</Person>
-          <Person
-            name={this.state.person[2].name}
-            age={this.state.person[2].age}
-            click={() => this.switchNameHandler("Jamil")} />
+          {this.state.person.map(p => {
+            return <Person name={p.name} age={p.age} />
+
+          })}
         </div >
 
     }
