@@ -48,11 +48,11 @@ export class App extends Component {
       font: "inherit",
       padding: "8px"
     }
-    return (
-      <div className="App">
-        <h1>Hello World</h1>
-        <button style={style} onClick={this.toggleNameHandler}>Switch</button>
-        {this.state.nameToggle ? <div>
+
+    let personConditional = null
+    if (this.state.nameToggle) {
+      personConditional =
+        < div >
           <Person
             name={this.state.person[0].name}
             age={this.state.person[0].age} />
@@ -65,9 +65,14 @@ export class App extends Component {
             name={this.state.person[2].name}
             age={this.state.person[2].age}
             click={() => this.switchNameHandler("Jamil")} />
-        </div> : null
-        }
+        </div >
 
+    }
+    return (
+      <div className="App" >
+        <h1>Hello World</h1>
+        <button style={style} onClick={this.toggleNameHandler}>Switch</button>
+        {personConditional}
       </div>
     )
 
