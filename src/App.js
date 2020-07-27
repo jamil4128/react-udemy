@@ -18,13 +18,17 @@ export class App extends Component {
     persons.splice(personIndex, 1)
     this.setState({ person: persons })
   }
-  changeInputHandler = (event) => {
+  changeInputHandler = (event, id) => {
+    const personIndex = this.state.person.findIndex(p => {
+      return p.id === id
+    })
+    const persons = { ...this.state.person[personIndex] }
+    persons.name = event.target.value
+
+    const person = [...this.state.person]
+    person[personIndex] = persons
     this.setState({
-      person: [
-        { name: "jamil", age: "29" },
-        { name: event.target.value, age: "22" },
-        { name: "Mollika", age: "20" }
-      ]
+      person: person
     },
       () => {
         console.log("was clicked")
@@ -50,7 +54,8 @@ export class App extends Component {
               click={this.deletePersonHandler.bind(this, index)}
               name={p.name}
               age={p.age}
-              key={p.id} />
+              key={p.id}
+              changed={(event) => { this.changeInputHandler(event, p.id) }} />
 
           })}
         </div >
