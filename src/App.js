@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./App.css";
-import Person from "./Person/Person"
+import Person from "./Person/Person";
+import Radium from "radium"
 
 export class App extends Component {
   state = {
@@ -40,9 +41,16 @@ export class App extends Component {
   }
   render() {
     const style = {
-      backGroundColor: "#c2f2e2",
+      backgroundColor: "green",
+      color: "white",
       font: "inherit",
-      padding: "8px"
+      padding: "8px",
+      border: "1px solid blue",
+      cursor: "pointer",
+      ":hover": {
+        backgroundColor: "lightgreen",
+        color: "black",
+      }
     }
 
     let personConditional = null
@@ -59,11 +67,24 @@ export class App extends Component {
 
           })}
         </div >
+      style.backgroundColor = "red"
+      style[":hover"] = {
+        backgroundColor: "blue",
+        color: "black",
+      }
 
+    }
+    const classes = []
+    if (this.state.person.length <= 2) {
+      classes.push("red")
+    }
+    if (this.state.person.length <= 1) {
+      classes.push("bold")
     }
     return (
       <div className="App" >
         <h1>Hello World</h1>
+        <p className={classes.join(' ')}>This is very interesting</p>
         <button style={style} onClick={this.toggleNameHandler}>Switch</button>
         {personConditional}
       </div>
@@ -73,7 +94,7 @@ export class App extends Component {
   //return React.createElement("div",{className: "App"},React.createElement("h1",null,"I am Jamil"))
 }
 
-export default App;
+export default Radium(App);
 
 
 
