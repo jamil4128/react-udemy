@@ -5,20 +5,19 @@ import Person from "./Person/Person"
 export class App extends Component {
   state = {
     person: [
-      { name: "Jamil", age: "29" },
-      { name: "Maruf", age: "22" },
-      { name: "Mollika", age: "21" }
+      { id: "df33", name: "Jamil", age: "29" },
+      { id: "sdfs55", name: "Maruf", age: "22" },
+      { id: "fdsf5", name: "Mollika", age: "21" }
     ],
     otherState: "I am another state",
     nameToggle: false
   }
 
   deletePersonHandler = (personIndex) => {
-    const persons = this.state.person
+    const persons = [...this.state.person]
     persons.splice(personIndex, 1)
     this.setState({ person: persons })
   }
-
   changeInputHandler = (event) => {
     this.setState({
       person: [
@@ -50,7 +49,8 @@ export class App extends Component {
             return <Person
               click={this.deletePersonHandler.bind(this, index)}
               name={p.name}
-              age={p.age} />
+              age={p.age}
+              key={p.id} />
 
           })}
         </div >
