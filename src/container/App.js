@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./App.css";
 import Persons from "../components/Persons/Persons";
+import Cockpit from '../components/Persons/Cockpit/Cockpit';
 
 export class App extends Component {
   constructor(props) {
@@ -63,19 +64,6 @@ export class App extends Component {
     this.setState({ nameToggle: !willToggle })
   }
   render() {
-    const style = {
-      backgroundColor: "green",
-      color: "white",
-      font: "inherit",
-      padding: "8px",
-      border: "1px solid blue",
-      cursor: "pointer",
-      ":hover": {
-        backgroundColor: "lightgreen",
-        color: "black",
-      }
-    }
-
     let personConditional = null
     if (this.state.nameToggle) {
       personConditional =
@@ -85,21 +73,16 @@ export class App extends Component {
             person={this.state.person}
             changeClick={this.changeInputHandler} />
         </div >
-      style.backgroundColor = "red"
-    }
-    const classes = []
-    if (this.state.person.length <= 2) {
-      classes.push("red")
-    }
-    if (this.state.person.length <= 1) {
-      classes.push("bold")
+
     }
     console.log("app.js render")
     return (
       <div className="App" >
-        <h1>{this.props.appTitle}</h1>
-        <p className={classes.join(' ')}>This is very interesting</p>
-        <button style={style} onClick={this.toggleNameHandler}>Switch</button>
+        <Cockpit
+          title={this.props.appTitle}
+          toggleNameHandler={this.toggleNameHandler}
+          person={this.state.person}
+          nameToggle={this.state.nameToggle} />
         {personConditional}
       </div>
     )
