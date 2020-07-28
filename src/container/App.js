@@ -1,17 +1,41 @@
 import React, { Component } from 'react';
 import "./App.css";
-import Person from "./Person/Person";
+import Persons from "../components/Persons/Persons";
 
 export class App extends Component {
-  state = {
-    person: [
-      { id: "df33", name: "Jamil", age: "29" },
-      { id: "sdfs55", name: "Maruf", age: "22" },
-      { id: "fdsf5", name: "Mollika", age: "21" }
-    ],
-    otherState: "I am another state",
-    nameToggle: false
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      person: [
+        { id: "df33", name: "Jamil", age: "29" },
+        { id: "sdfs55", name: "Maruf", age: "22" },
+        { id: "fdsf5", name: "Mollika", age: "21" }
+      ],
+      otherState: "I am another state",
+      nameToggle: false
+    }
+    console.log("App.js constructor")
   }
+  static getDerivedStateFromProps(props, state) {
+    console.log("app.js getDerivedStateFromProps", props)
+    return state
+  }
+  componentDidMount() {
+    console.log("app.js componentDidMount")
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log("app.js shouldComponentUpdate")
+    return true;
+  }
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    console.log("app.js getSnapshotBeforeUpdate")
+    return null
+  }
+  componentDidUpdate() {
+    console.log("app.js componentDidUpdate")
+  }
+
 
   deletePersonHandler = (personIndex) => {
     const persons = [...this.state.person]
@@ -56,19 +80,12 @@ export class App extends Component {
     if (this.state.nameToggle) {
       personConditional =
         < div >
-          {this.state.person.map((p, index) => {
-            return <Person
-              click={this.deletePersonHandler.bind(this, index)}
-              name={p.name}
-              age={p.age}
-              key={p.id}
-              changed={(event) => { this.changeInputHandler(event, p.id) }} />
-
-          })}
+          <Persons
+            deleteClick={this.deletePersonHandler}
+            person={this.state.person}
+            changeClick={this.changeInputHandler} />
         </div >
       style.backgroundColor = "red"
-
-
     }
     const classes = []
     if (this.state.person.length <= 2) {
@@ -77,9 +94,10 @@ export class App extends Component {
     if (this.state.person.length <= 1) {
       classes.push("bold")
     }
+    console.log("app.js render")
     return (
       <div className="App" >
-        <h1>Hello World</h1>
+        <h1>{this.props.appTitle}</h1>
         <p className={classes.join(' ')}>This is very interesting</p>
         <button style={style} onClick={this.toggleNameHandler}>Switch</button>
         {personConditional}
