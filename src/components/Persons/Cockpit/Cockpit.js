@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import "./Cockpit.css"
 
 function Cockpit(props) {
+    useEffect(() => {
+        console.log("Cockpit useEffect")
+        setTimeout(() => {
+            alert("Saved data to cloud")
+        }, 1000)
+    }, [])
     const style = {
         backgroundColor: "green",
         color: "white",
